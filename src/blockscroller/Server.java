@@ -6,9 +6,11 @@
 package blockscroller;
 
 import java.awt.Color;
+import java.rmi.RemoteException;
 import java.rmi.registry.Registry;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -21,13 +23,13 @@ public class Server implements Game {
     final int MAX_PLAYERS = 4;
     ConcurrentHashMap<Color, Player> playerList = new ConcurrentHashMap<>(MAX_PLAYERS);
     final Color[] playableColors = new Color[]{Color.RED, Color.GREEN, Color.ORANGE, Color.BLUE};
+    public Enemy enemy = new Enemy(Color.WHITE);
 
     public static void main(String args[]) {
 
         try {
             Server obj = new Server();
             Game game = (Game) UnicastRemoteObject.exportObject(obj, 0);
-
             // Bind the remote object's stub in the registry
             Registry registry = LocateRegistry.getRegistry();
             registry.bind("Game", game);
@@ -37,6 +39,10 @@ public class Server implements Game {
             System.err.println("Server exception: " + e.toString());
             e.printStackTrace();
         }
+    }
+
+    public Server() {
+        new Thread(this.enemy).start();
     }
 
     @Override
@@ -65,8 +71,13 @@ public class Server implements Game {
     }
 
     @Override
-    public Collection<Player> getPlayers() {
-        return this.playerList.values();
+    public ArrayList<Player> getPlayers() {
+        return new ArrayList(this.playerList.values());
+    }
+
+    @Override
+    public Enemy getEnemy() throws RemoteException {
+        return enemy;
     }
 
 }

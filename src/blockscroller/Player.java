@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package blockscroller;
 
 import java.awt.Color;
@@ -14,18 +13,19 @@ import java.io.Serializable;
  * @author bradysmith
  */
 public class Player implements Serializable {
+
     private Color myColor;
     private float speed;
     private int size;
     private float x;
     private float y;
-    
-    Player(Color inColor){
+
+    Player(Color inColor) {
         myColor = inColor;
         x = 30;
         y = 400;
-        speed = 1.0f;
-        size = 5;
+        speed = 1.5f;
+        size = 20;
     }
 
     /**
@@ -71,11 +71,11 @@ public class Player implements Serializable {
     }
 
     void moveUp() {
-        this.setY(getY() + getSpeed());
+        this.setY(getY() - getSpeed());
     }
 
     void moveDown() {
-        this.setY(getY() - getSpeed());
+        this.setY(getY() + getSpeed());
     }
 
     void moveLeft() {
@@ -127,5 +127,5 @@ public class Player implements Serializable {
     public void setY(float y) {
         this.y = y;
     }
-    
+
 }

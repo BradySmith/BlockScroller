@@ -22,4 +22,6 @@ public interface Game extends Remote {
     void updatePlayer(Player p) throws RemoteException;
 
     Collection<Player> getPlayers() throws RemoteException;
+
+    Enemy getEnemy() throws RemoteException;
 }
