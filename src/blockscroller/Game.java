@@ -19,7 +19,7 @@ public interface Game extends Remote {
 
     void leave(Player p) throws RemoteException;
 
-    void updatePlayer(Player p);
+    void updatePlayer(Player p) throws RemoteException;
 
-    Collection<Player> getPlayers();
+    Collection<Player> getPlayers() throws RemoteException;
 }

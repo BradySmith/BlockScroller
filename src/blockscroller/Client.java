@@ -9,6 +9,7 @@ package blockscroller;
  *
  * @author dylan
  */
+import java.awt.Color;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import javax.swing.JFrame;
@@ -23,18 +24,16 @@ public class Client {
         String host = (args.length < 1) ? null : args[0];
         try {
             Registry registry = LocateRegistry.getRegistry(host);
-            Game game = (Game) registry.lookup("Game");
-            
-            JFrame frame = new JFrame("BrickBreaker");
+            GameManager game = new GameManager(registry);
+
+            JFrame frame = new JFrame("BlockScroller");
             frame.setVisible(true);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setSize(800, 600);
-            
-            Player me = game.join();
-            
-            frame.setBackground(me.getMyColor());
-            frame.repaint();
-            
+            frame.add(game);
+
+
+
         } catch (Exception e) {
             System.err.println("Client exception: " + e.toString());
             e.printStackTrace();

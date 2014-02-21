@@ -7,20 +7,25 @@
 package blockscroller;
 
 import java.awt.Color;
+import java.io.Serializable;
 
 /**
  *
  * @author bradysmith
  */
-public class Player {
+public class Player implements Serializable {
     private Color myColor;
-    private int x;
-    private int y;
+    private float speed;
+    private int size;
+    private float x;
+    private float y;
     
     Player(Color inColor){
         myColor = inColor;
         x = 30;
         y = 400;
+        speed = 1.0f;
+        size = 5;
     }
 
     /**
@@ -40,7 +45,7 @@ public class Player {
     /**
      * @return the x
      */
-    public int getX() {
+    public float getX() {
         return x;
     }
 
@@ -48,13 +53,13 @@ public class Player {
      * @param x the x to set
      */
     public void setX(int x) {
-        this.x = x;
+        this.setX(x);
     }
 
     /**
      * @return the y
      */
-    public int getY() {
+    public float getY() {
         return y;
     }
 
@@ -62,6 +67,64 @@ public class Player {
      * @param y the y to set
      */
     public void setY(int y) {
+        this.setY(y);
+    }
+
+    void moveUp() {
+        this.setY(getY() + getSpeed());
+    }
+
+    void moveDown() {
+        this.setY(getY() - getSpeed());
+    }
+
+    void moveLeft() {
+        this.setX(getX() - getSpeed());
+    }
+
+    void moveRight() {
+        this.setX(getX() + getSpeed());
+    }
+
+    /**
+     * @return the speed
+     */
+    public float getSpeed() {
+        return speed;
+    }
+
+    /**
+     * @param speed the speed to set
+     */
+    public void setSpeed(float speed) {
+        this.speed = speed;
+    }
+
+    /**
+     * @return the size
+     */
+    public int getSize() {
+        return size;
+    }
+
+    /**
+     * @param size the size to set
+     */
+    public void setSize(int size) {
+        this.size = size;
+    }
+
+    /**
+     * @param x the x to set
+     */
+    public void setX(float x) {
+        this.x = x;
+    }
+
+    /**
+     * @param y the y to set
+     */
+    public void setY(float y) {
         this.y = y;
     }
     
