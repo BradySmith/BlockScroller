@@ -9,7 +9,6 @@ package blockscroller;
  *
  * @author dylan
  */
-import blockscroller.Hello;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
