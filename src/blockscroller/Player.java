@@ -50,28 +50,14 @@ public class Player implements Serializable {
     }
 
     /**
-     * @param x the x to set
-     */
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    /**
      * @return the y
      */
     public float getY() {
         return y;
     }
 
-    /**
-     * @param y the y to set
-     */
-    public void setY(int y) {
-        this.y = y;
-    }
-
     boolean moveUp() {
-        if (getY()-getSpeed() < 0){
+        if (getY() - getSpeed() < 0) {
             return false;
         }
         this.setY(getY() - getSpeed());
@@ -79,7 +65,7 @@ public class Player implements Serializable {
     }
 
     boolean moveDown() {
-        if (getY() + getSpeed() > 600){
+        if (getY() + getSpeed() > 600) {
             return false;
         }
         this.setY(getY() + getSpeed());
@@ -87,7 +73,7 @@ public class Player implements Serializable {
     }
 
     boolean moveLeft() {
-        if (getX()-getSpeed() < 0){
+        if (getX() - getSpeed() < 0) {
             return false;
         }
         this.setX(getX() - getSpeed());
@@ -95,7 +81,7 @@ public class Player implements Serializable {
     }
 
     boolean moveRight() {
-        if (getX()+getSpeed() > 800){
+        if (getX() + getSpeed() > 800) {
             return false;
         }
         this.setX(getX() + getSpeed());

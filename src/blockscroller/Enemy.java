@@ -14,30 +14,22 @@ import java.util.Random;
  */
 public class Enemy extends Player implements Runnable {
 
+    Random rng = new Random();
+
     public Enemy(Color inColor) {
         super(inColor);
-        this.setX(30);
-        this.setY(100);
+        this.setX(0);
+        this.setY(rng.nextInt(600));
+        this.setSpeed(0.00001f);
     }
 
     @Override
     public void run() {
-        Random rng = new Random();
         while (true) {
-            int num = rng.nextInt(4);
-            switch (num) {
-                case 0:
-                    this.moveDown();
-                    break;
-                case 1:
-                    this.moveUp();
-                    break;
-                case 2:
-                    this.moveLeft();
-                    break;
-                case 3:
-                    this.moveRight();
-                    break;
+            if (!this.moveRight()) {
+                this.setX(0);
+                this.setY(rng.nextInt(600));
+                System.out.println("Enemy died");
             }
         }
     }
