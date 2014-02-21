@@ -17,7 +17,7 @@ import java.rmi.server.UnicastRemoteObject;
 public class Server implements Hello {
 
     public String sayHello() {
-        return "Hello, world!";
+        return "Hello, world";
     }
 
     public static void main(String args[]) {
