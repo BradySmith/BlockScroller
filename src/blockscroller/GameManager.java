@@ -11,6 +11,7 @@ import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.rmi.registry.Registry;
+import java.util.Collection;
 import javax.swing.JPanel;
 
 /**
@@ -21,6 +22,7 @@ public class GameManager extends JPanel implements Runnable, KeyListener {
 
     Game game;
     Player me;
+    Collection<Player> players;
 
     GameManager(Registry registry) {
         try {
@@ -60,22 +62,27 @@ public class GameManager extends JPanel implements Runnable, KeyListener {
         if (me == null) {
             System.out.println("Me is null again");
         } else {
-            g.setColor(me.getMyColor());
-            g.fillOval((int) me.getX(), (int) me.getY(), (int)me.getSize(), (int)me.getSize());
+            for (Player p : players) {
+                g.setColor(p.getMyColor());
+                g.fillOval((int) p.getX(), (int) p.getY(), (int) p.getSize(), (int) p.getSize());
+            }
         }
     }
 
     @Override
     public void run() {
-        this.setBackground(Color.BLACK);
-        while (true) {
-            if (me == null) {
-                System.out.println("error me is null");
-            } else {
-                me.getX();
-                me.getY();
-                repaint();
+        try {
+            this.setBackground(Color.BLACK);
+            while (true) {
+                if (me == null) {
+                    System.out.println("error me is null");
+                } else {
+                    game.updatePlayer(me);
+                    players = game.getPlayers();
+                    repaint();
+                }
             }
+        } catch (Exception e) {
         }
     }
 
