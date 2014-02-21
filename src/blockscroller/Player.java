@@ -53,7 +53,7 @@ public class Player implements Serializable {
      * @param x the x to set
      */
     public void setX(int x) {
-        this.setX(x);
+        this.x = x;
     }
 
     /**
@@ -67,7 +67,7 @@ public class Player implements Serializable {
      * @param y the y to set
      */
     public void setY(int y) {
-        this.setY(y);
+        this.y = y;
     }
 
     void moveUp() {
