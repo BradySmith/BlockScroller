@@ -16,6 +16,8 @@ public class Enemy extends Player implements Runnable {
 
     public Enemy(Color inColor) {
         super(inColor);
+        this.setX(30);
+        this.setY(100);
     }
 
     @Override

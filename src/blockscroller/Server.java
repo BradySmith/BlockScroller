@@ -23,7 +23,7 @@ public class Server implements Game {
     final int MAX_PLAYERS = 4;
     ConcurrentHashMap<Color, Player> playerList = new ConcurrentHashMap<>(MAX_PLAYERS);
     final Color[] playableColors = new Color[]{Color.RED, Color.GREEN, Color.ORANGE, Color.BLUE};
-    public Enemy enemy = new Enemy(Color.WHITE);
+    public Enemy enemy = new Enemy(Color.RED);
 
     public static void main(String args[]) {
 
