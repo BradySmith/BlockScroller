@@ -5,8 +5,9 @@
  */
 package blockscroller;
 
-import java.awt.Color;
 import java.rmi.Remote;
+import java.rmi.RemoteException;
+import java.util.Collection;
 
 /**
  *
@@ -14,7 +15,11 @@ import java.rmi.Remote;
  */
 public interface Game extends Remote {
 
-    Player join();
+    Player join() throws RemoteException;
 
-    void leave(Player p);
+    void leave(Player p) throws RemoteException;
+
+    void updatePlayer(Player p);
+
+    Collection<Player> getPlayers();
 }

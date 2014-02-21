@@ -9,6 +9,8 @@ import java.awt.Color;
 import java.rmi.registry.Registry;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.Collection;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  *
@@ -16,19 +18,19 @@ import java.rmi.server.UnicastRemoteObject;
  */
 public class Server implements Game {
 
-    public String sayHello() {
-        return "Hello, world";
-    }
+    final int MAX_PLAYERS = 4;
+    ConcurrentHashMap<Color, Player> playerList = new ConcurrentHashMap<>(MAX_PLAYERS);
+    final Color[] playableColors = new Color[]{Color.RED, Color.GREEN, Color.ORANGE, Color.BLUE};
 
     public static void main(String args[]) {
 
         try {
             Server obj = new Server();
-            Hello stub = (Hello) UnicastRemoteObject.exportObject(obj, 0);
+            Game game = (Game) UnicastRemoteObject.exportObject(obj, 0);
 
             // Bind the remote object's stub in the registry
             Registry registry = LocateRegistry.getRegistry();
-            registry.bind("Hello", stub);
+            registry.bind("Game", game);
 
             System.err.println("Server ready");
         } catch (Exception e) {
@@ -38,15 +40,28 @@ public class Server implements Game {
     }
 
     @Override
-    public Player join() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public synchronized Player join() {
+        for (Color nextColor : playableColors) {
+            if (!playerList.containsKey(nextColor)) {
+                return new Player(nextColor);
+            }
+        }
+        return null;
     }
 
     @Override
-    public void leave(Player p) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public synchronized void leave(Player p) {
+        this.playerList.remove(p.getMyColor());
     }
 
+    @Override
+    public synchronized void updatePlayer(Player p) {
+        this.playerList.put(p.getMyColor(), p);
+    }
 
+    @Override
+    public Collection<Player> getPlayers() {
+        return this.playerList.values();
+    }
 
 }
