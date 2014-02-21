@@ -30,7 +30,10 @@ public class Client {
             frame.setVisible(true);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setSize(800, 600);
+            game.addKeyListener(game);
+            game.setFocusable(true);
             frame.add(game);
+            frame.setVisible(true);
 
 
 
