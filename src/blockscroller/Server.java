@@ -43,9 +43,14 @@ public class Server implements Game {
     public synchronized Player join() {
         for (Color nextColor : playableColors) {
             if (!playerList.containsKey(nextColor)) {
-                return new Player(nextColor);
+
+                Player p = new Player(nextColor);
+                playerList.put(nextColor, p);
+                System.out.println("Player connected: " + p.getMyColor());
+                return p;
             }
         }
+        System.out.println("out of colors!");
         return null;
     }
 
