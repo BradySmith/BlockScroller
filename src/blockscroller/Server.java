@@ -5,6 +5,7 @@
  */
 package blockscroller;
 
+import java.awt.Color;
 import java.rmi.registry.Registry;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.server.UnicastRemoteObject;
@@ -13,7 +14,7 @@ import java.rmi.server.UnicastRemoteObject;
  *
  * @author dylan
  */
-public class Server implements Hello {
+public class Server implements Game {
 
     public String sayHello() {
         return "Hello, world";
@@ -35,5 +36,17 @@ public class Server implements Hello {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public Player join() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void leave(Player p) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+
 
 }

@@ -14,7 +14,7 @@ import java.rmi.Remote;
  */
 public interface Game extends Remote {
 
-    Color join();
+    Player join();
 
-    void leave(Color c);
+    void leave(Player p);
 }
