@@ -59,9 +59,8 @@ public class GameManager extends JPanel implements Runnable, KeyListener {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
-        if (me == null) {
-            System.out.println("Me is null again");
-        } else {
+        if (players == null) {} 
+        else {
             for (Player p : players) {
                 g.setColor(p.getMyColor());
                 g.fillOval((int) p.getX(), (int) p.getY(), (int) p.getSize(), (int) p.getSize());
@@ -74,15 +73,13 @@ public class GameManager extends JPanel implements Runnable, KeyListener {
         try {
             this.setBackground(Color.BLACK);
             while (true) {
-                if (me == null) {
-                    System.out.println("error me is null");
-                } else {
-                    game.updatePlayer(me);
-                    players = game.getPlayers();
-                    repaint();
-                }
+                game.updatePlayer(me);
+                players = game.getPlayers();
+                repaint();
             }
+
         } catch (Exception e) {
+            System.err.println("Client exception: " + e.toString());
         }
     }
 
