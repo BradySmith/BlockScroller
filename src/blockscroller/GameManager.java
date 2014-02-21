@@ -10,6 +10,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.Rectangle2D;
 import java.rmi.registry.Registry;
 import java.util.Collection;
 import javax.swing.JPanel;
@@ -22,6 +24,7 @@ public class GameManager extends JPanel implements Runnable, KeyListener {
 
     Game game;
     Player me;
+    Enemy him;
     Collection<Player> players;
 
     GameManager(Registry registry) {
@@ -32,6 +35,15 @@ public class GameManager extends JPanel implements Runnable, KeyListener {
         } catch (Exception e) {
             System.err.println("Client exception: " + e.toString());
         }
+    }
+    
+    public boolean collisionDetection(){
+        Rectangle2D.Double hisRect = new Rectangle2D.Double(him.getX(), him.getY(), him.getSize(), him.getSize());
+        Ellipse2D.Double myRect = new Ellipse2D.Double(me.getX(), me.getY(), me.getSize(), me.getSize());
+        if (myRect.getBounds2D().intersects(hisRect.getBounds2D())){
+            return true;
+        }
+        return false;
     }
 
     public void keyPressed(KeyEvent e) {
@@ -65,6 +77,8 @@ public class GameManager extends JPanel implements Runnable, KeyListener {
                 g.setColor(p.getMyColor());
                 g.fillOval((int) p.getX(), (int) p.getY(), (int) p.getSize(), (int) p.getSize());
             }
+            g.setColor(him.getMyColor());
+            g.fillRect((int) him.getX(), (int) him.getY(), (int) him.getSize(), (int) him.getSize());
         }
     }
 
@@ -75,6 +89,10 @@ public class GameManager extends JPanel implements Runnable, KeyListener {
             while (true) {
                 game.updatePlayer(me);
                 players = game.getPlayers();
+                him = game.getEnemy();
+                if (this.collisionDetection()){
+                    System.out.println("Hit");
+                }
                 repaint();
             }
 

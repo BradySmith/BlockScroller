@@ -70,20 +70,36 @@ public class Player implements Serializable {
         this.y = y;
     }
 
-    void moveUp() {
+    boolean moveUp() {
+        if (getY()-getSpeed() < 0){
+            return false;
+        }
         this.setY(getY() - getSpeed());
+        return true;
     }
 
-    void moveDown() {
+    boolean moveDown() {
+        if (getY() + getSpeed() > 600){
+            return false;
+        }
         this.setY(getY() + getSpeed());
+        return true;
     }
 
-    void moveLeft() {
+    boolean moveLeft() {
+        if (getX()-getSpeed() < 0){
+            return false;
+        }
         this.setX(getX() - getSpeed());
+        return true;
     }
 
-    void moveRight() {
+    boolean moveRight() {
+        if (getX()+getSpeed() > 800){
+            return false;
+        }
         this.setX(getX() + getSpeed());
+        return true;
     }
 
     /**
